@@ -1,22 +1,34 @@
 export default function Header({ onPublish }) {
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2">
-          <span className="font-montserrat font-black text-2xl text-[#00205B]">prime</span>
-          <span className="text-xs font-semibold text-gray-400 leading-tight hidden sm:block">
-            Marketplace<br/>Universitario
-          </span>
+    <header className="sticky top-0 z-40 bg-white border-b border-gray-100" style={{ backdropFilter: 'blur(8px)' }}>
+      <div className="max-w-6xl mx-auto px-8 h-16 flex items-center justify-between">
+
+        {/* Logo */}
+        <a href="#" className="flex flex-col leading-none">
+          <span className="font-montserrat font-black text-2xl text-[#00205B] tracking-tight">prime</span>
+          <span className="text-[10px] font-semibold text-gray-400 tracking-wide -mt-0.5">Marketplace Universitario</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-gray-600">
-          <a href="#como-funciona" className="hover:text-[#00205B] transition-colors">Características</a>
-          <a href="#testimonios" className="hover:text-[#00205B] transition-colors">Testimonios</a>
-          <a href="#listings" className="hover:text-[#00205B] transition-colors">Ver todo</a>
+        {/* Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {[
+            { label: 'Características', href: '#features' },
+            { label: 'Testimonios', href: '#testimonios' },
+            { label: 'Ver publicaciones', href: '#listings' },
+          ].map(link => (
+            <a key={link.href} href={link.href}
+              className="text-sm font-semibold text-gray-500 hover:text-[#00205B] transition-colors">
+              {link.label}
+            </a>
+          ))}
         </nav>
 
+        {/* CTA */}
         <button onClick={onPublish}
-          className="bg-[#00205B] hover:bg-[#003080] text-white font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
+          className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg text-white transition-colors"
+          style={{ backgroundColor: '#00205B' }}
+          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#003080'}
+          onMouseLeave={e => e.currentTarget.style.backgroundColor = '#00205B'}>
           Publicar
         </button>
       </div>

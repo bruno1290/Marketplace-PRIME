@@ -28,7 +28,8 @@
       "Bash(curl -sL \"https://www.rumieapp.com/\")",
       "Bash(python3 -c ' *)",
       "Bash(osascript)",
-      "Bash(python3 -)"
+      "Bash(python3 -)",
+      "Bash(xargs kill *)"
     ]
   }
 }

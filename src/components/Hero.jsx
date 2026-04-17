@@ -1,99 +1,156 @@
 export default function Hero({ onPublish, onExplore }) {
   return (
-    <section className="flex min-h-[88vh] overflow-hidden">
-      {/* Left — text */}
-      <div className="flex-1 flex flex-col justify-center px-8 sm:px-16 py-16 max-w-2xl">
-        <h1 className="font-montserrat font-black text-5xl sm:text-6xl md:text-7xl text-[#00205B] leading-tight mb-6">
-          Marketplace<br />para<br />Universidades
-        </h1>
-        <p className="text-gray-500 text-lg sm:text-xl leading-relaxed mb-10 max-w-md">
-          La primera plataforma de compra y venta diseñada exclusivamente para universitarios chilenos, construida para tu campus.
+    <section className="flex flex-col lg:flex-row" style={{ minHeight: 'calc(100vh - 64px)' }}>
+
+      {/* Left — text content */}
+      <div className="flex-1 flex flex-col justify-center px-8 sm:px-14 xl:px-20 py-20 lg:py-0">
+        <p className="text-xs font-montserrat font-bold tracking-[0.2em] uppercase text-gray-400 mb-6">
+          Creado por y para universitarios
         </p>
-        <div className="flex flex-wrap gap-4">
-          <button onClick={onExplore}
-            className="bg-[#1a1a1a] hover:bg-black text-white font-montserrat font-bold px-7 py-4 rounded-xl text-base transition-colors">
+        <h1 className="font-montserrat font-black leading-[0.95] mb-7"
+          style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', color: '#00205B' }}>
+          Marketplace<br />para<br />Universidades<br />Chilenas
+        </h1>
+        <p className="text-gray-500 leading-relaxed mb-10 max-w-md"
+          style={{ fontSize: '1.125rem' }}>
+          La primera plataforma de compra, venta y arriendo diseñada exclusivamente para estudiantes universitarios — construida para tu campus.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={onExplore}
+            className="font-montserrat font-bold text-sm px-8 py-4 rounded-lg transition-colors"
+            style={{ backgroundColor: '#111', color: '#fff' }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#000'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = '#111'}
+          >
             Ver publicaciones
           </button>
-          <button onClick={onPublish}
-            className="border-2 border-[#1a1a1a] text-[#1a1a1a] hover:bg-gray-50 font-montserrat font-bold px-7 py-4 rounded-xl text-base transition-colors">
+          <button
+            onClick={onPublish}
+            className="font-montserrat font-bold text-sm px-8 py-4 rounded-lg border-2 transition-colors"
+            style={{ borderColor: '#111', color: '#111', backgroundColor: 'transparent' }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#111'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#111' }}
+          >
             Publicar gratis
           </button>
         </div>
       </div>
 
-      {/* Right — navy panel + phone mockup */}
-      <div className="hidden lg:flex flex-1 bg-[#00205B] items-center justify-center relative overflow-hidden">
-        {/* Decorative floating icons */}
-        {['📱','👕','📚','🎟️','💪','🏠'].map((icon, i) => (
-          <div key={i} className="absolute text-white/10 text-5xl select-none"
+      {/* Right — UC navy panel with CSS phone mockup */}
+      <div className="lg:w-[52%] flex-shrink-0 bg-[#00205B] flex items-center justify-center relative overflow-hidden"
+        style={{ minHeight: '60vw', maxHeight: '100vh' }}>
+
+        {/* Floating background icons */}
+        {[
+          { icon: '📱', top: '8%',  left: '8%',  rot: '-12deg', size: '3.5rem', opacity: 0.12 },
+          { icon: '👕', top: '18%', left: '72%', rot: '15deg',  size: '3rem',   opacity: 0.10 },
+          { icon: '📚', top: '65%', left: '6%',  rot: '-8deg',  size: '2.8rem', opacity: 0.10 },
+          { icon: '🎟️', top: '72%', left: '68%', rot: '18deg',  size: '3rem',   opacity: 0.12 },
+          { icon: '💪', top: '40%', left: '82%', rot: '-5deg',  size: '2.5rem', opacity: 0.08 },
+          { icon: '🏠', top: '48%', left: '4%',  rot: '10deg',  size: '2.8rem', opacity: 0.09 },
+          { icon: '🎓', top: '88%', left: '35%', rot: '-15deg', size: '3rem',   opacity: 0.08 },
+        ].map((item, i) => (
+          <span key={i} className="absolute select-none pointer-events-none"
             style={{
-              top: `${[15,65,30,75,10,55][i]}%`,
-              left: `${[5,10,75,70,45,80][i]}%`,
-              transform: `rotate(${[-15,20,-10,15,-20,10][i]}deg)`
+              top: item.top, left: item.left,
+              fontSize: item.size,
+              opacity: item.opacity,
+              transform: `rotate(${item.rot})`,
             }}>
-            {icon}
-          </div>
+            {item.icon}
+          </span>
         ))}
 
-        {/* CSS Phone Mockup */}
-        <div className="relative z-10 w-64 h-[520px] bg-white rounded-[40px] shadow-2xl border-4 border-white/20 overflow-hidden flex flex-col">
-          {/* Phone notch */}
-          <div className="h-6 bg-white flex items-center justify-center shrink-0">
-            <div className="w-20 h-3 bg-gray-200 rounded-full" />
+        {/* Phone mockup */}
+        <div className="relative z-10 my-12 lg:my-0"
+          style={{
+            width: '260px',
+            height: '530px',
+            backgroundColor: '#ffffff',
+            borderRadius: '38px',
+            boxShadow: '0 40px 80px rgba(0,0,0,0.4), 0 0 0 8px rgba(255,255,255,0.08)',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+
+          {/* Status bar */}
+          <div style={{ height: '28px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <div style={{ width: '80px', height: '10px', backgroundColor: '#e5e7eb', borderRadius: '999px' }} />
           </div>
 
           {/* App header */}
-          <div className="px-4 py-2 border-b border-gray-100 shrink-0">
-            <div className="flex items-center justify-between">
+          <div style={{ padding: '8px 14px 6px', borderBottom: '1px solid #f3f4f6', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
-                <p className="text-[10px] text-gray-400 font-semibold">Hola 👋</p>
-                <p className="text-sm font-montserrat font-black text-[#00205B]">Estudiante UC</p>
+                <p style={{ fontSize: '9px', color: '#9ca3af', fontWeight: 600, marginBottom: '1px' }}>Hola 👋</p>
+                <p style={{ fontSize: '13px', fontFamily: 'Montserrat, sans-serif', fontWeight: 900, color: '#00205B' }}>Estudiante UC</p>
               </div>
-              <div className="w-8 h-8 bg-[#00205B] rounded-full flex items-center justify-center">
-                <span className="text-white text-xs font-bold">UC</span>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#00205B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ color: 'white', fontSize: '10px', fontWeight: 900 }}>UC</span>
               </div>
             </div>
           </div>
 
           {/* Tabs */}
-          <div className="flex border-b border-gray-100 shrink-0">
-            {['Marketplace','Arriendos','Campus'].map((tab, i) => (
-              <button key={tab} className={`flex-1 text-[9px] font-bold py-2 transition-colors
-                ${i === 0 ? 'text-[#00205B] border-b-2 border-[#00205B]' : 'text-gray-400'}`}>
-                {tab}
-              </button>
+          <div style={{ display: 'flex', borderBottom: '1px solid #f3f4f6', flexShrink: 0 }}>
+            {[
+              { label: 'Marketplace', active: true },
+              { label: 'Arriendos', active: false },
+              { label: 'Campus', active: false },
+            ].map(tab => (
+              <div key={tab.label} style={{
+                flex: 1, padding: '8px 4px', textAlign: 'center',
+                fontSize: '8.5px', fontWeight: 700,
+                color: tab.active ? '#00205B' : '#9ca3af',
+                borderBottom: tab.active ? '2px solid #00205B' : '2px solid transparent',
+              }}>
+                {tab.label}
+              </div>
             ))}
           </div>
 
-          {/* Listings */}
-          <div className="flex-1 overflow-hidden p-2">
-            <p className="text-[9px] font-bold text-gray-700 mb-2">Marketplace <span className="text-[#00205B]">Ver todo →</span></p>
-            <div className="grid grid-cols-2 gap-1.5 mb-3">
+          {/* Content */}
+          <div style={{ flex: 1, overflowY: 'hidden', padding: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ fontSize: '9px', fontWeight: 700, color: '#111' }}>Marketplace</span>
+              <span style={{ fontSize: '8px', color: '#00205B', fontWeight: 600 }}>Ver todo →</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '12px' }}>
               {[
-                { emoji: '👟', price: '$60.000', label: 'Nike AF1', tag: 'Ropa' },
-                { emoji: '📱', price: '$380.000', label: 'iPad 10', tag: 'Tech' },
+                { bg: '#EFF6FF', emoji: '👟', price: '$60.000', name: 'Nike AF1 Blancas', tag: 'Ropa' },
+                { bg: '#F0FDF4', emoji: '📱', price: '$380.000', name: 'iPad 10 + Pencil', tag: 'Tech' },
               ].map(item => (
-                <div key={item.label} className="bg-gray-50 rounded-xl overflow-hidden">
-                  <div className="h-16 flex items-center justify-center text-2xl bg-blue-50">{item.emoji}</div>
-                  <div className="p-1.5">
-                    <span className="text-[8px] bg-[#00205B] text-white px-1 py-0.5 rounded-full">{item.tag}</span>
-                    <p className="text-[9px] font-black text-[#00205B] mt-0.5">{item.price}</p>
-                    <p className="text-[8px] text-gray-500">{item.label}</p>
+                <div key={item.name} style={{ borderRadius: '10px', overflow: 'hidden', backgroundColor: '#fff', border: '1px solid #f3f4f6' }}>
+                  <div style={{ height: '64px', backgroundColor: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px' }}>
+                    {item.emoji}
+                  </div>
+                  <div style={{ padding: '5px 6px' }}>
+                    <span style={{ fontSize: '7px', backgroundColor: '#00205B', color: '#fff', padding: '1px 5px', borderRadius: '999px', fontWeight: 700 }}>{item.tag}</span>
+                    <p style={{ fontSize: '9px', fontWeight: 900, color: '#00205B', marginTop: '3px', fontFamily: 'Montserrat,sans-serif' }}>{item.price}</p>
+                    <p style={{ fontSize: '7.5px', color: '#6b7280', marginTop: '1px' }}>{item.name}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-[9px] font-bold text-gray-700 mb-2">Arriendos <span className="text-[#00205B]">Ver todo →</span></p>
-            <div className="grid grid-cols-2 gap-1.5">
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ fontSize: '9px', fontWeight: 700, color: '#111' }}>Arriendos</span>
+              <span style={{ fontSize: '8px', color: '#00205B', fontWeight: 600 }}>Ver todo →</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
               {[
-                { emoji: '🏠', price: '$500k/mes', label: 'Depto República' },
-                { emoji: '👗', price: '$15k/semana', label: 'Vestidos' },
+                { bg: '#F0FDF4', emoji: '🏠', price: '$500k/mes', name: 'Depto República' },
+                { bg: '#FEF9C3', emoji: '📚', price: '$55.000', name: 'Libro Finanzas' },
               ].map(item => (
-                <div key={item.label} className="bg-gray-50 rounded-xl overflow-hidden">
-                  <div className="h-16 flex items-center justify-center text-2xl bg-green-50">{item.emoji}</div>
-                  <div className="p-1.5">
-                    <p className="text-[9px] font-black text-[#00205B]">{item.price}</p>
-                    <p className="text-[8px] text-gray-500">{item.label}</p>
+                <div key={item.name} style={{ borderRadius: '10px', overflow: 'hidden', backgroundColor: '#fff', border: '1px solid #f3f4f6' }}>
+                  <div style={{ height: '64px', backgroundColor: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px' }}>
+                    {item.emoji}
+                  </div>
+                  <div style={{ padding: '5px 6px' }}>
+                    <p style={{ fontSize: '9px', fontWeight: 900, color: '#00205B', fontFamily: 'Montserrat,sans-serif' }}>{item.price}</p>
+                    <p style={{ fontSize: '7.5px', color: '#6b7280', marginTop: '1px' }}>{item.name}</p>
                   </div>
                 </div>
               ))}
@@ -101,10 +158,20 @@ export default function Hero({ onPublish, onExplore }) {
           </div>
 
           {/* Bottom nav */}
-          <div className="border-t border-gray-100 flex shrink-0">
-            {['🏠','🔍','➕','💬','👤'].map((icon, i) => (
-              <button key={i} className={`flex-1 py-2 text-base ${i === 0 ? 'text-[#00205B]' : 'text-gray-300'}`}>
-                {icon}
+          <div style={{ borderTop: '1px solid #f3f4f6', display: 'flex', flexShrink: 0 }}>
+            {[
+              { icon: '⊞', active: true },
+              { icon: '⌕', active: false },
+              { icon: '⊕', active: false },
+              { icon: '✉', active: false },
+              { icon: '◎', active: false },
+            ].map((btn, i) => (
+              <button key={i} style={{
+                flex: 1, padding: '10px 0', fontSize: '16px',
+                color: btn.active ? '#00205B' : '#d1d5db',
+                background: 'none', border: 'none', cursor: 'pointer',
+              }}>
+                {btn.icon}
               </button>
             ))}
           </div>
