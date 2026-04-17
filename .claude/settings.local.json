@@ -20,7 +20,8 @@
       "Bash(gh repo *)",
       "Bash(git -c credential.helper='!f\\(\\) { echo \"username=x-token\"; echo \"password=$\\(cat\\)\"; }; f' push https://github.com/bruno1290/Marketplace-PRIME.git main)",
       "WebFetch(domain:www.uc.cl)",
-      "WebFetch(domain:www.facebook.com)"
+      "WebFetch(domain:www.facebook.com)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
     ]
   }
 }
