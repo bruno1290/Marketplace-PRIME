@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { LISTINGS, CATEGORIES } from './data/listings'
 import Header from './components/Header'
-import Hero from './components/Hero'
+import Sidebar from './components/Sidebar'
 import CategoryFilter from './components/CategoryFilter'
 import ListingCard from './components/ListingCard'
 import ListingModal from './components/ListingModal'
@@ -14,9 +14,7 @@ export default function App() {
   const counts = useMemo(() => {
     const c = { all: LISTINGS.length }
     CATEGORIES.forEach(cat => {
-      if (cat.id !== 'all') {
-        c[cat.id] = LISTINGS.filter(l => l.category === cat.id).length
-      }
+      if (cat.id !== 'all') c[cat.id] = LISTINGS.filter(l => l.category === cat.id).length
     })
     return c
   }, [])
@@ -33,65 +31,82 @@ export default function App() {
     })
   }, [search, category])
 
+  const handlePublish = () => {
+    const msg = `Hola! Quiero publicar algo en el Marketplace de Comercial UC 🛒`
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
+  }
+
+  const categoryLabel = CATEGORIES.find(c => c.id === category)?.label ?? 'Todo'
+
   return (
-    <div className="min-h-screen bg-[#F5F4FF]">
+    <div className="min-h-screen bg-[#F0F2F5]">
       <Header searchQuery={search} onSearchChange={setSearch} />
-      <Hero />
 
-      <main className="max-w-5xl mx-auto px-4 pb-16">
-        {/* Category filter */}
-        <div className="py-4">
-          <CategoryFilter selected={category} onSelect={setCategory} counts={counts} />
-        </div>
+      <div className="max-w-7xl mx-auto px-3 py-4 flex gap-4 items-start">
 
-        {/* Results header */}
-        <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-gray-500">
-            {filtered.length === 0
-              ? 'Sin resultados'
-              : `${filtered.length} ${filtered.length === 1 ? 'publicación' : 'publicaciones'}`}
-          </p>
-          {(search || category !== 'all') && (
-            <button
-              onClick={() => { setSearch(''); setCategory('all') }}
-              className="text-xs text-violet-600 font-medium hover:underline"
-            >
-              Limpiar filtros
-            </button>
+        {/* Sidebar — desktop only */}
+        <Sidebar
+          selected={category}
+          onSelect={setCategory}
+          counts={counts}
+          onPublish={handlePublish}
+        />
+
+        {/* Main content */}
+        <main className="flex-1 min-w-0">
+
+          {/* Mobile category chips */}
+          <div className="mb-3">
+            <CategoryFilter selected={category} onSelect={setCategory} counts={counts} />
+          </div>
+
+          {/* Page title */}
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">{categoryLabel}</h1>
+              <p className="text-sm text-gray-500">
+                {filtered.length} {filtered.length === 1 ? 'publicación' : 'publicaciones'} · Hoy
+              </p>
+            </div>
+            {(search || category !== 'all') && (
+              <button
+                onClick={() => { setSearch(''); setCategory('all') }}
+                className="text-sm text-[#00205B] font-medium hover:underline"
+              >
+                Limpiar filtros
+              </button>
+            )}
+          </div>
+
+          {/* Grid */}
+          {filtered.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {filtered.map(listing => (
+                <ListingCard key={listing.id} listing={listing} onClick={setSelected} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white rounded-xl p-12 flex flex-col items-center justify-center text-center shadow-sm">
+              <span className="text-5xl mb-4">🔍</span>
+              <h3 className="text-lg font-semibold text-gray-700 mb-1">Sin resultados</h3>
+              <p className="text-sm text-gray-400 max-w-xs">
+                Intenta con otra búsqueda o cambia la categoría.
+              </p>
+            </div>
           )}
-        </div>
+        </main>
+      </div>
 
-        {/* Grid */}
-        {filtered.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {filtered.map(listing => (
-              <ListingCard key={listing.id} listing={listing} onClick={setSelected} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <span className="text-6xl mb-4">🔍</span>
-            <h3 className="text-lg font-semibold text-gray-700 mb-1">No encontramos nada</h3>
-            <p className="text-sm text-gray-400 max-w-xs">
-              Intenta con otra búsqueda o cambia la categoría.
-            </p>
-          </div>
-        )}
-      </main>
-
-      {/* Floating publish button */}
-      <div className="fixed bottom-6 right-4 sm:right-6 z-30">
+      {/* Mobile publish FAB */}
+      <div className="fixed bottom-5 right-4 md:hidden z-30">
         <button
-          onClick={() => {
-            const msg = `Hola! Quiero publicar algo en el marketplace de Comercial UC 🛒`
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
-          }}
-          className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold px-5 py-3.5 rounded-2xl shadow-xl shadow-violet-300 hover:shadow-2xl hover:scale-105 transition-all"
+          onClick={handlePublish}
+          className="flex items-center gap-2 bg-[#00205B] text-white font-bold px-5 py-3 rounded-full shadow-xl hover:bg-[#003080] transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
           </svg>
-          <span>Publicar</span>
+          Publicar
         </button>
       </div>
 

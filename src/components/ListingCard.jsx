@@ -1,36 +1,16 @@
-const CATEGORY_COLORS = {
-  ropa: 'bg-pink-100 text-pink-700',
-  tech: 'bg-blue-100 text-blue-700',
-  entradas: 'bg-orange-100 text-orange-700',
-  suplementos: 'bg-green-100 text-green-700',
-  libros: 'bg-amber-100 text-amber-700',
-  arriendo: 'bg-cyan-100 text-cyan-700',
-  servicios: 'bg-purple-100 text-purple-700',
-}
-
-const CATEGORY_LABELS = {
-  ropa: '👕 Ropa',
-  tech: '📱 Tech',
-  entradas: '🎟️ Entradas',
-  suplementos: '💪 Suplementos',
-  libros: '📚 Libros',
-  arriendo: '🏠 Arriendo',
-  servicios: '🔧 Servicios',
-}
-
-const PLACEHOLDER_COLORS = {
-  ropa: 'from-pink-200 to-rose-200',
-  tech: 'from-blue-200 to-indigo-200',
-  entradas: 'from-orange-200 to-amber-200',
-  suplementos: 'from-green-200 to-emerald-200',
-  libros: 'from-amber-200 to-yellow-200',
-  arriendo: 'from-cyan-200 to-sky-200',
-  servicios: 'from-purple-200 to-violet-200',
-}
-
 const PLACEHOLDER_EMOJI = {
   ropa: '👕', tech: '📱', entradas: '🎟️',
   suplementos: '💪', libros: '📚', arriendo: '🏠', servicios: '🔧',
+}
+
+const PLACEHOLDER_BG = {
+  ropa: '#FEE2E2',
+  tech: '#DBEAFE',
+  entradas: '#FEF3C7',
+  suplementos: '#D1FAE5',
+  libros: '#FEF9C3',
+  arriendo: '#CFFAFE',
+  servicios: '#EDE9FE',
 }
 
 function formatPrice(price, priceLabel) {
@@ -40,67 +20,54 @@ function formatPrice(price, priceLabel) {
 
 export default function ListingCard({ listing, onClick }) {
   const hasImage = listing.images && listing.images.length > 0
-  const catColor = CATEGORY_COLORS[listing.category] ?? 'bg-gray-100 text-gray-600'
-  const placeholderGrad = PLACEHOLDER_COLORS[listing.category] ?? 'from-gray-200 to-gray-300'
-  const placeholderEmoji = PLACEHOLDER_EMOJI[listing.category] ?? '🛍️'
+  const emoji = PLACEHOLDER_EMOJI[listing.category] ?? '🛍️'
+  const bg = PLACEHOLDER_BG[listing.category] ?? '#F3F4F6'
 
   return (
     <button
       onClick={() => onClick(listing)}
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-left w-full border border-gray-100"
+      className="group bg-white rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-200 text-left w-full border border-gray-100"
     >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-gray-50">
+      <div className="relative w-full aspect-square overflow-hidden"
+        style={{ backgroundColor: bg }}>
         {hasImage ? (
           <img
             src={listing.images[0]}
             alt={listing.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
           />
         ) : (
-          <div className={`w-full h-full bg-gradient-to-br ${placeholderGrad} flex items-center justify-center`}>
-            <span className="text-5xl opacity-60">{placeholderEmoji}</span>
-          </div>
-        )}
-        {listing.featured && (
-          <div className="absolute top-2 left-2 bg-violet-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
-            DESTACADO
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-5xl opacity-40">{emoji}</span>
           </div>
         )}
         {listing.images && listing.images.length > 1 && (
-          <div className="absolute bottom-2 right-2 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-md">
-            +{listing.images.length - 1}
+          <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded-md font-medium">
+            +{listing.images.length - 1} fotos
+          </div>
+        )}
+        {listing.featured && (
+          <div className="absolute top-2 left-2 bg-[#00205B] text-white text-[9px] font-bold px-2 py-0.5 rounded-full tracking-wide uppercase">
+            Destacado
           </div>
         )}
       </div>
 
       {/* Info */}
       <div className="p-3">
-        <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-2 flex-1">
-            {listing.title}
-          </h3>
-        </div>
-
-        <p className="text-violet-700 font-bold text-base mb-2">
+        <p className="font-bold text-[#00205B] text-base leading-tight">
           {formatPrice(listing.price, listing.priceLabel)}
         </p>
-
-        <div className="flex items-center justify-between gap-1">
-          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${catColor}`}>
-            {CATEGORY_LABELS[listing.category]}
-          </span>
-          {listing.condition && (
-            <span className="text-[10px] text-gray-400 truncate">{listing.condition}</span>
-          )}
-        </div>
-
-        <div className="mt-2 flex items-center gap-1 text-gray-400">
+        <p className="text-sm text-gray-800 mt-0.5 leading-snug line-clamp-2">
+          {listing.title}
+        </p>
+        <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
           <svg className="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
           </svg>
-          <span className="text-[11px] truncate">{listing.seller}</span>
-        </div>
+          {listing.campus ?? 'San Joaquín'}
+        </p>
       </div>
     </button>
   )

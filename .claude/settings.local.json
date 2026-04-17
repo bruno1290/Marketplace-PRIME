@@ -10,7 +10,17 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(brew list *)",
+      "Bash(brew install *)",
+      "Bash(gh repo *)",
+      "Bash(git -c credential.helper='!f\\(\\) { echo \"username=x-token\"; echo \"password=$\\(cat\\)\"; }; f' push https://github.com/bruno1290/Marketplace-PRIME.git main)",
+      "WebFetch(domain:www.uc.cl)",
+      "WebFetch(domain:www.facebook.com)"
     ]
   }
 }
