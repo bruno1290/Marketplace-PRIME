@@ -21,7 +21,14 @@
       "Bash(git -c credential.helper='!f\\(\\) { echo \"username=x-token\"; echo \"password=$\\(cat\\)\"; }; f' push https://github.com/bruno1290/Marketplace-PRIME.git main)",
       "WebFetch(domain:www.uc.cl)",
       "WebFetch(domain:www.facebook.com)",
-      "mcp__Claude_in_Chrome__tabs_context_mcp"
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(open -a Safari \"https://www.rumieapp.com/\")",
+      "Bash(osascript -e 'tell application \"Safari\" to activate')",
+      "Bash(osascript -e 'tell application \"Safari\" *)",
+      "Bash(curl -sL \"https://www.rumieapp.com/\")",
+      "Bash(python3 -c ' *)",
+      "Bash(osascript)",
+      "Bash(python3 -)"
     ]
   }
 }
