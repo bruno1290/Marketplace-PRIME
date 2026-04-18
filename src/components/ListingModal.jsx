@@ -116,7 +116,7 @@ export default function ListingModal({ listing, onClose }) {
           <div className="p-4 border-t border-gray-100">
             <button
               onClick={() => {
-                const msg = `Hola ${listing.seller}! Vi tu publicación "${listing.title}" en Prime Marketplace UC 👋 ¿Sigue disponible?`
+                const msg = `Hola ${listing.seller}! Vi tu publicación "${listing.title}" en MarketSafe PUC 👋 ¿Sigue disponible?`
                 window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
               }}
               className="w-full bg-[#00205B] hover:bg-[#003080] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2.5 transition-colors shadow-lg"

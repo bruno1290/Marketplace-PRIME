@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-12">
           <div className="max-w-xs">
-            <p className="font-montserrat font-black text-3xl text-white mb-2">prime</p>
+            <p className="font-montserrat font-black text-3xl text-white mb-2">MarketSafe</p>
             <p className="text-gray-500 text-sm leading-relaxed">
               Compra, vende y arrienda.<br />
               El marketplace exclusivo creado por y para universitarios chilenos.
@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
         <div className="border-t pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
           style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-          <p className="text-gray-600 text-xs">© 2026 Prime Marketplace · Creado por y para universitarios chilenos.</p>
+          <p className="text-gray-600 text-xs">© 2026 MarketSafe · Creado por y para universitarios chilenos.</p>
           <p className="text-gray-600 text-xs">0% comisiones · Solo universitarios</p>
         </div>
       </div>
